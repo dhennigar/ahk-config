@@ -1,9 +1,10 @@
 ﻿#Requires AutoHotkey v2.0
 
 #SingleInstance
-InstallMouseHook True
 
 Capslock::Ctrl
++LShift::Capslock
++RShift::Capslock
 
 LAlt::LWin
 
@@ -16,5 +17,3 @@ Tab Up::{
 		Send "{LAlt Up}"
 	}
 }
-
-
