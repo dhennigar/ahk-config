@@ -5,7 +5,6 @@
 
 ;; Maps capslock to control, then regain capslock functionality
 ;; by pressing both shift keys.
-
 Capslock::Ctrl
 +LShift::Capslock
 +RShift::Capslock
@@ -13,7 +12,6 @@ Capslock::Ctrl
 ;; Maps the little-used F12 key to the Windows key. This is 
 ;; needed for my win-keyless IBM Model M. Ctrl+F12 regains 
 ;; the F12 key.
-
 F12::LWin
 ^F12::F12
 
@@ -22,5 +20,9 @@ F12::LWin
 ^g::Esc
 #HotIf
 
+;; Maps C-s to search function in Chrome.
+#HotIf WinActive("ahk_exe chrome.exe")
+^s::Send "^f"
+#HotIf
 
 
