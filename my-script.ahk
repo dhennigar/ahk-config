@@ -49,19 +49,19 @@ F12::LWin
 ;; The following hotkeys focus the given application if it is already
 ;; open. Else, they launch a new instance of the application.
 
-^!e::{
-	if WinExist("ahk_class Emacs")
+RunOrRaise(identifier, exe)
+{
+	if WinExist(identifier)
 		WinActivate
 	else
-		Run "C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe"
+		Run exe
 }
 
-^!w::{
-	if WinExist("ahk_exe chrome.exe")
-		WinActivate
-	else
-		Run "C:\Program Files\Google\Chrome\Application\chrome.exe"
-}
+^!e::RunOrRaise "ahk_class Emacs", "C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe"
+
+^!w::RunOrRaise "ahk_exe chrome.exe", "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+^!t::RunOrRaise "ahk_exe WindowsTerminal.exe", "wt.exe"
 
 
 ;;; my-script.ahk ends here
