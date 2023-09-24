@@ -13,6 +13,7 @@
 #Requires AutoHotkey v2.0
 #SingleInstance
 
+DetectHiddenWindows True
 
 ;; Maps capslock to control, then regain capslock functionality
 ;; by pressing both shift keys.
@@ -21,47 +22,44 @@ Capslock::Ctrl
 +LShift::Capslock
 +RShift::Capslock
 
-
-;; Maps the little-used F12 key to the Windows key. This is 
-;; needed for my win-keyless IBM Model M. Ctrl+F12 regains 
-;; the F12 key.
-
+;; useful on the model m
 F12::LWin
 ^F12::F12
 
 
-;; Maps C-g to Escape when outside of Emacs.
-
+;; C-g == esc outside of emacs
 #HotIf !WinActive("ahk_class Emacs")
 ^g::Esc
 #HotIf
 
 
-;; Emacs bindings in Chrome.
-
+;; emacs-style navigation in chrome
 #HotIf WinActive("ahk_exe chrome.exe") 
 ^s::Send "^f"
 ^n::Send "{Down}"
 ^p::Send "{Up}"
+^f::Send "{Right}"
+^b::Send "{Left}"
+^v::Send "{PgDn}"
+!v::Send "{PgUp}"
 #HotIf
 
 
-;; The following hotkeys focus the given application if it is already
-;; open. Else, they launch a new instance of the application.
-
-RunOrRaise(identifier, exe)
-{
+;; Run-or-raise
+RunOrRaise(identifier, exe) {
 	if WinExist(identifier)
 		WinActivate
 	else
 		Run exe
 }
-
-^!e::RunOrRaise "ahk_class Emacs", "C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe"
+^!q::RunOrRaise "ahk_class qgis-ltr-bin.exe", "C:\Program Files\QGIS 3.28.10\bin\qgis-ltr-bin.exe"
 
 ^!w::RunOrRaise "ahk_exe chrome.exe", "C:\Program Files\Google\Chrome\Application\chrome.exe"
 
+^!e::RunOrRaise "ahk_class Emacs", "C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe --chdir C:\Users\dhenn"
+
 ^!t::RunOrRaise "ahk_exe WindowsTerminal.exe", "wt.exe"
+
 
 
 ;;; my-script.ahk ends here
