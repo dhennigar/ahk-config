@@ -15,51 +15,54 @@
 
 DetectHiddenWindows True
 
-;; Maps capslock to control, then regain capslock functionality
-;; by pressing both shift keys.
-
 Capslock::Ctrl
 +LShift::Capslock
 +RShift::Capslock
 
-;; useful on the model m
 F12::LWin
 ^F12::F12
 
-
-;; C-g == esc outside of emacs
 #HotIf !WinActive("ahk_class Emacs")
 ^g::Esc
 #HotIf
 
-
-;; emacs-style navigation in chrome
 #HotIf WinActive("ahk_exe chrome.exe") 
 ^s::Send "^f"
 ^n::Send "{Down}"
 ^p::Send "{Up}"
-^f::Send "{Right}"
-^b::Send "{Left}"
-^v::Send "{PgDn}"
-!v::Send "{PgUp}"
 #HotIf
 
-
-;; Run-or-raise
 RunOrRaise(identifier, exe) {
 	if WinExist(identifier)
 		WinActivate
 	else
 		Run exe
 }
-^!q::RunOrRaise "ahk_class qgis-ltr-bin.exe", "C:\Program Files\QGIS 3.28.10\bin\qgis-ltr-bin.exe"
 
-^!w::RunOrRaise "ahk_exe chrome.exe", "C:\Program Files\Google\Chrome\Application\chrome.exe"
+^q::{
+	ih := InputHook("L1 M")
+	ih.Start()
+	ih.Wait()
 
-^!e::RunOrRaise "ahk_class Emacs", "C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe --chdir C:\Users\dhenn"
+        ; Windows Terminal
+	if (ih.Input = "t") {
+              RunOrRaise "ahk_exe WindowsTerminal.exe", "wt.exe"
+	}
 
-^!t::RunOrRaise "ahk_exe WindowsTerminal.exe", "wt.exe"
+        ; Emacs
+	if (ih.Input = "e") {
+              RunOrRaise "ahk_class Emacs", "C:\Program Files\emacs-29.1\bin\runemacs.exe --chdir C:\Users\dhenn"
+	}
 
+        ; Web browser
+	if (ih.Input = "w") {
+              RunOrRaise "ahk_exe chrome.exe", "C:\Program Files\Google\Chrome\Application\chrome.exe"
+	}
 
+        ; C-c
+	if (ih.Input = Chr(3)) {
+              Send "{LAlt down}{F4}{LAlt up}"
+	}
+}
 
 ;;; my-script.ahk ends here
