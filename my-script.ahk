@@ -27,7 +27,6 @@ F12::LWin
 #HotIf
 
 #HotIf WinActive("ahk_exe chrome.exe") 
-^s::Send "^f"
 ^n::Send "{Down}"
 ^p::Send "{Up}"
 #HotIf
@@ -51,7 +50,7 @@ RunOrRaise(identifier, exe) {
 
         ; Emacs
 	if (ih.Input = "e") {
-              RunOrRaise "ahk_class Emacs", "C:\Program Files\emacs-29.1\bin\runemacs.exe --chdir C:\Users\dhenn"
+              RunOrRaise "ahk_class Emacs", "C:\Program Files\Emacs\emacs-29.1\bin\runemacs.exe --chdir C:\Users\dhenn"
 	}
 
         ; Web browser
